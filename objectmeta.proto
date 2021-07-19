@@ -73,7 +73,8 @@ message ThumbnailMeta {
 이벤트 타입
 */
 enum EventType
-{    
+{
+    LongStay = 0;                       // 체류
     Loitering = 1;                      // 배회
     Intrusion = 2;                      // 침입
     Falldown = 3;                       // 쓰러짐
