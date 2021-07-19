@@ -74,20 +74,20 @@ message ThumbnailMeta {
 */
 enum EventType
 {    
-    Loitering = 1,                      // 배회
-    Intrusion = 2,                      // 침입
-    Falldown = 3,                       // 쓰러짐
-    PeopleCounting = 8,                 // 영역 내 사람 수 카운팅
-    AbnormalCongestion = 10,            // 객체 혼잡도
-    AbnormalObjectCount = 11,           // 영역 내 객체 과밀집
-    RoiCount = 12,                      // 영역 진입 누적 카운트
-    LineCount = 13,                     // 라인 통과 누적 카운트
-    IllegalParking = 14,                // 불법 주정차
-    WrongWay = 15,                      // 역 방향 카운트
-    DirectionCount = 16,                // 방향성 이동 카운트 (좌, 우, 유턴 등)
-    PeopleCongestionLevel = 17,         // 사람 혼잡도 레벨
-    VehicleSpeed = 18,                  // 차량 속도
-    StopVehicleCount = 20,              // 정차 중인 차량 수 카운트
+    Loitering = 1;                      // 배회
+    Intrusion = 2;                      // 침입
+    Falldown = 3;                       // 쓰러짐
+    PeopleCounting = 8;                 // 영역 내 사람 수 카운팅
+    AbnormalCongestion = 10;            // 객체 혼잡도
+    AbnormalObjectCount = 11;           // 영역 내 객체 과밀집
+    RoiCount = 12;                      // 영역 진입 누적 카운트
+    LineCount = 13;                     // 라인 통과 누적 카운트
+    IllegalParking = 14;                // 불법 주정차
+    WrongWay = 15;                      // 역 방향 카운트
+    DirectionCount = 16;                // 방향성 이동 카운트 (좌, 우, 유턴 등)
+    PeopleCongestionLevel = 17;         // 사람 혼잡도 레벨
+    VehicleSpeed = 18;                  // 차량 속도
+    StopVehicleCount = 20;              // 정차 중인 차량 수 카운트
 }
 
 /*
@@ -95,19 +95,19 @@ enum EventType
 */
 enum ObjectType
 {
-    Person = 0,                         // 사람
-    Bike = 1,                           // 자전거
-    Car = 2,                            // 승용차
-    Motorcycle = 3,                     // 오토바이
-    Bus = 4,                            // 버스
-    Truck = 5,                          // 트럭
-    Excavator =6,                       // 굴착기
-    TankTruck = 7,                      // 탱크트럭
-    Forklift = 8,                       // 지게차
-    Lemicon = 9,                        // 레미콘
-    Cultivator = 10,                    // 경운기
-    Tractor = 11,                       // 트랙터
-    ElectricCar = 12                    // 전기차
+    Person = 0;                         // 사람
+    Bike = 1;                           // 자전거
+    Car = 2;                            // 승용차
+    Motorcycle = 3;                     // 오토바이
+    Bus = 4;                            // 버스
+    Truck = 5;                          // 트럭
+    Excavator =6;                       // 굴착기
+    TankTruck = 7;                      // 탱크트럭
+    Forklift = 8;                       // 지게차
+    Lemicon = 9;                        // 레미콘
+    Cultivator = 10;                    // 경운기
+    Tractor = 11;                       // 트랙터
+    ElectricCar = 12;                   // 전기차
 }
 
 /*
