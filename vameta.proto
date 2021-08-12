@@ -5,17 +5,17 @@ import "google/protobuf/timestamp.proto";
 
 package VAMetaService;
 /*
-    va metadata service
+    va metadata streaming service
 */
 service VAMetaService {
-    rpc GetVAMetaStream (google.protobuf.Empty) returns (FrameMetaData);     // 영상 분석 결과를 스트리밍 받기
+    rpc GetVAMetaStream (google.protobuf.Empty) returns (FrameMetaData); 
 }
 /*
     detected meta in frame
 */
 message FrameMetaData {
     string channel_id = 1;                   // 채널 ID
-    google.protobuf.Timestamp timestamp = 2; // Timestamp
+    google.protobuf.Timestamp timestamp = 2; // 발생 시간
     repeated EventInfo event_list = 3;       // 이벤트 검출 리스트
     repeated Segmetation object_list = 4;    // 객체 검출 
 }
@@ -23,28 +23,33 @@ message FrameMetaData {
     detected segmentation info
 */
 message Segmetation {
-    ObjectType label = 1;         // 객체 종류
+    ObjectType label = 1;         // 객체 종류 (enum ObjectType 참고)
     BoundingBox box = 2;          // 객체 검출 박스 좌표
-    int32 confidence = 3;         // 검출 정확도
+    int32 confidence = 3;         // 검출 정확도 (0 ~1)
 }
 /*
     alram event info
 */
 message EventInfo {
-    int32 id = 1;                   // Unique ID
-    int32 roi_id = 2;               // 발생 ROI ID
+    int32 id = 1;                   // 객체 ID
+    int32 roi_id = 2;               // 발생 영역 ID
     State state = 3;                // 진행 상태
     Segmetation segmentation = 4;   // 검출 정보
     EventType event_type = 5;       // 이벤트 타입 (enum EventType 참고)
-    string base64_jpg_image = 6;    // jpeg Image -> base64 encoding
+    string base64_jpg_image = 6;    // 검출 객체 이미지 (jpeg image --> base64 encoding)
     oneof detail {
         Face face = 7;
         ITS its = 8;
     }
 }
 message Face {
+    string name = 1;   //이름
+    int32 age = 2;     //나이
+    Gender gender = 3; //성별 (enum Gender 참고)
+    string memo = 4;
 }
 message ITS {
+    
 }
 /*
     검출 객체 정보
@@ -100,3 +105,11 @@ enum State
     CONTINUE = 1;   //진행
     END =2;         //종료
 }
+/*
+    성별
+*/
+ enum Gender
+ {
+    MAN = 0; //남자
+    WOMAN = 1; //여자
+ }
