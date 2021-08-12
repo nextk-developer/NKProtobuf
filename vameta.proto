@@ -25,6 +25,7 @@ message FrameMetaData {
 message Segmetation {
     ObjectType label = 1;         // 객체 종류
     BoundingBox box = 2;          // 객체 검출 박스 좌표
+    int32 confidence = 3;         // 검출 정확도
 }
 /*
     alram event info
@@ -32,7 +33,7 @@ message Segmetation {
 message EventInfo {
     int32 id = 1;                   // Unique ID
     int32 roi_id = 2;               // 발생 ROI ID
-    EventStatus status = 3;         // 이벤트 상태
+    State state = 3;                // 진행 상태
     Segmetation segmentation = 4;   // 검출 정보
     EventType event_type = 5;       // 이벤트 타입 (enum EventType 참고)
     string base64_jpg_image = 6;    // jpeg Image -> base64 encoding
@@ -49,10 +50,10 @@ message ITS {
     검출 객체 정보
 */
 message BoundingBox {
-    double x = 1;      //검출 박스 x좌표 (영상 비율, Normalization : 0 ~ 1)
-    double y = 2;      //검출 박스 y좌표 (영상 비율, Normalization : 0 ~ 1)
-    double width = 3;  //검출 박스 너비  (영상 비율, Normalization : 0 ~ 1)
-    double height = 4; //검출 박스 높이  (영상 비율, Normalization : 0 ~ 1)
+    double x = 1;      //객체 박스 x좌표 (영상 비율, Normalization : 0 ~ 1)
+    double y = 2;      //객체 박스 y좌표 (영상 비율, Normalization : 0 ~ 1)
+    double width = 3;  //객체 박스 너비  (영상 비율, Normalization : 0 ~ 1)
+    double height = 4; //객체 박스 높이  (영상 비율, Normalization : 0 ~ 1)
 }
 
 /*
@@ -60,21 +61,16 @@ message BoundingBox {
 */
 enum EventType
 {   
-    Longstay = 0;                 // 체류
-    Loitering = 1;                // 배회
-    Intrusion = 2;                // 침입
-    Falldown = 3;                 // 쓰러짐
-    PeopleCounting = 8;           // 영역 내 사람 수 카운팅
-    AbnormalCongestion = 10;      // 객체 혼잡도
-    AbnormalObjectCount = 11;     // 영역 내 객체 과밀집
-    RoiCount = 12;                // 영역 진입 누적 카운트
-    LineCount = 13;               // 라인 통과 누적 카운트
-    IllegalParking = 14;          // 불법 주정차
-    WrongWay = 15;                // 역 방향 카운트
-    DirectionCount = 16;          // 방향성 이동 카운트 (좌, 우, 유턴 등)
-    PeopleCongestionLevel = 17;   // 사람 혼잡도 레벨
-    VehicleSpeed = 18;            // 차량 속도
-    StopVehicleCount = 20;        // 정차 중인 차량 수 카운트
+    LONGSTAY = 0;               //체류
+    LOITERING = 1;              //배회
+    INTRUSION = 2;              //침입
+    FALLDOWN = 3;               //쓰러짐
+    ABANDONED = 4;              //유기
+    CONGESTION = 10;            //혼잡도
+    LINECROSSING = 11;          //라인, 방향성 파라메터 필요
+    DOUBLELINECROSSING = 16;    //단방향 연속 라인 통과
+    SPEED = 18;                 //속도측정, 라인 두개 그림
+    STOP = 20;                  //정지
 }
 
 /*
@@ -82,26 +78,25 @@ enum EventType
 */
 enum ObjectType
 {
-    Person = 0;                   // 사람
-    Bike = 1;                     // 자전거
-    Car = 2;                      // 승용차
-    Motorcycle = 3;               // 오토바이
-    Bus = 4;                      // 버스
-    Truck = 5;                    // 트럭
-    Excavator =6;                 // 굴착기
-    TankTruck = 7;                // 탱크트럭
-    Forklift = 8;                 // 지게차
-    Lemicon = 9;                  // 레미콘
-    Cultivator = 10;              // 경운기
-    Tractor = 11;                 // 트랙터
-    ElectricCar = 12;             // 전기차
+    PERSON = 0;                   // 사람
+    BIKE = 1;                     // 자전거
+    CAR = 2;                      // 승용차
+    MOTORCYCLE = 3;               // 오토바이
+    BUS = 4;                      // 버스
+    TRUCK = 5;                    // 트럭
+    EXCAVATOR =6;                 // 굴착기
+    TANKTRUCK = 7;                // 탱크트럭
+    FORKLIFT = 8;                 // 지게차
+    LEMICON = 9;                  // 레미콘
+    CULTIVATOR = 10;              // 경운기
+    TRACTOR = 11;                 // 트랙터
 }
 /*
     이벤트 발생 상태값
 */
-enum EventStatus
+enum State
 {
-    Begin = 0;
-    Continue = 1;
-    End =2;
+    START = 0;      //시작
+    CONTINUE = 1;   //진행
+    END =2;         //종료
 }
