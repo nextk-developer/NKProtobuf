@@ -1,4 +1,4 @@
-syntax = "proto3";
+﻿syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
@@ -30,8 +30,8 @@ message EventInfo {
     int32 id = 1;                          // 객체 ID
     State state = 2;                       // 객체 상태
     Segmetation segmentation = 3;          // 검출 정보
-    repeated TraceResult alram_trace = 2;  // ROI 내역
-    string base64_jpg_image = 6;           // 검출 객체 이미지 (jpeg image --> base64 encoding)
+    repeated TraceResult alram_trace = 4;  // ROI 내역
+    string base64_jpg_image = 5;           // 검출 객체 이미지 (jpeg image --> base64 encoding)
 }
 /*
     프레임 내 검출 결과 정보
@@ -61,7 +61,7 @@ message RoiResult {
     관심 영역 라인 정보 (IN, OUT)
 */
 message LineResult {
-    int line_id = 1;
+    int32 line_id = 1;
     string line_name = 2;
 }
 /*
