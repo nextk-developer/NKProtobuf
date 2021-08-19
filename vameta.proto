@@ -1,4 +1,4 @@
-﻿syntax = "proto3";
+syntax = "proto3";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
@@ -8,8 +8,9 @@ package VAMetaService;
     va metadata streaming service
 */
 service VAMetaService {
-    rpc GetVAMetaStream (google.protobuf.Empty) returns (FrameMetaData); 
+    rpc GetVAMetaStream (google.protobuf.Empty) returns (stream FrameMetaData); 
 }
+
 /*
     detected meta in frame
 */
@@ -38,7 +39,7 @@ message EventInfo {
 message Segmetation {
     ObjectType label = 1;         // 객체 종류 (enum ObjectType 참고)
     BoundingBox box = 2;          // 객체 검출 박스 좌표
-    int32 confidence = 3;         // 검출 정확도 (0 ~1)
+    double confidence = 3;        // 검출 정확도 (0 ~1)
 }
 /*
     관심 영역 발생 내역
