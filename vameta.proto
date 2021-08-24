@@ -5,14 +5,14 @@ import "google/protobuf/timestamp.proto";
 
 package VAMetaService;
 /*
-    va metadata streaming service
+    메타데이터 서비스 스트림
 */
 service VAMetaService {
     rpc GetVAMetaStream (google.protobuf.Empty) returns (stream FrameMetaData); 
 }
 
 /*
-    detected meta in frame
+    프레임 내 메타데이터 정보
 */
 message FrameMetaData {
     string channel_id = 1;                   // 채널 ID
@@ -20,11 +20,8 @@ message FrameMetaData {
     repeated EventInfo event_list = 3;       // 이벤트 검출 리스트
     repeated Segmetation object_list = 4;    // 객체 검출 
 }
-/* 
-1. image capture 순간은 언제가 좋을지..
-2. 현재 roi 위치를 알려주는게 좋을지.. 고객이 TraceResult에서 최신 결과를 취할지..
-3. 얼굴 검출 결과는 단순히 검출 결과는 OBJECT TYPE으로 얼굴 남/녀 확인 및 크로핑 이미지
-   --> 크로핑 받은 이미지를 따로 매칭을 호출하는 방식으로 하는게 좋지 않을까..
+/*
+    검출 이벤트 정보
 */
 message EventInfo {
     int32 id = 1;                          // 객체 ID
