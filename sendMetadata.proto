@@ -74,13 +74,11 @@ message EventInfo {
         int32 image_height = 4;
     }
     JpegImageInfo jpeg_image = 6;
-    EventParameter EventParam = 7;
-    message EventParameter {
-        repeated string parameters = 1;
-    }
-    // parameters 정의
-    //얼굴 매칭 : 0 (db_id), 1(등록 썸네일?)
-    //얼굴 나이 : 0 (age)
+    double event_score = 7;
+    string event_message = 8;
+    // |event    |  event score             | event_message  |
+    // |matching |  matchingScore (0.0~1.0) | mathcing uid |
+    // |masked   |  msakedScore (0.0~1.0)   | none |
 }
 /*
     프레임 내 검출 결과 정보
@@ -147,7 +145,7 @@ enum ObjectType
     FLAME = 50;                   // 불꽃
     SMOKE = 51;                   // 연기}
     FACE_MAN = 200;               // 얼굴_남자
-    FACE_WOMAN = 201;             // 얼굴_여자/*
+    FACE_WOMAN = 201;             // 얼굴_여자
 }
 /*
     이벤트 종류
@@ -158,7 +156,10 @@ enum EventType
     Loitering = 1;                // 배회
     Intrusion = 2;                // 침입
     Falldown = 3;                 // 쓰러짐
-    PeopleCounting = 8;           // 영역 내 사람 수 카운팅
+    Abandonment = 4;              // 유기
+    Violence = 5;                 // 싸움,폭력
+    PeopleCounting = 8;           // 영역을 지나간 사람 카운팅
+    Queueing = 9;                 // 영역 내 사람 수
     AbnormalCongestion = 10;      // 객체 혼잡도
     AbnormalObjectCount = 11;     // 영역 내 객체 과밀집
     RoiCount = 12;                // 영역 진입 누적 카운트
@@ -168,10 +169,11 @@ enum EventType
     DirectionCount = 16;          // 방향성 이동 카운트 (좌, 우, 유턴 등)
     PeopleCongestionLevel = 17;   // 사람 혼잡도 레벨
     VehicleSpeed = 18;            // 차량 속도
+    VehicleDensity = 19;          // 차량 밀도
     StopVehicleCount = 20;        // 정차 중인 차량 수 카운트
-    Flame = 50;                   // 화재
-    MatchingFace = 200;           // 등록 얼굴 매칭
-    MaskedFace = 201;             // 얼굴 마스크 착용
+    Flame = 26;                   // 화재
+    MatchingFace = 27;           // 등록 얼굴 매칭
+    MaskedFace = 28;             // 얼굴 마스크 착용
 }
 
 /*
