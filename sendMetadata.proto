@@ -157,6 +157,7 @@ enum ObjectType
 */
 enum EventType
 {   
+	Default = 0;                  // None
     Loitering = 1;                // 배회 (1)
     Intrusion = 2;                // 침입 (1)
     Falldown = 3;                 // 쓰러짐 (1)
