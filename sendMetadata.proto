@@ -169,7 +169,7 @@ enum EventType
     MatchingFace = 27;            // 등록 얼굴 매칭 (1)
     UnMaskedFace = 28;            // 얼굴 마스크 미착용 (1)
     NoHelmetHead = 29;            // 헬멧 미착용
-    HelmetHead = 29;              // 헬멧 착용
+    HelmetHead = 30;              // 헬멧 착용
 }
 
 /*
